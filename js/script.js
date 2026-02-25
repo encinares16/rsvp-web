@@ -104,19 +104,115 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
       if (e.target === e.currentTarget) closeModal();
     });
 
-    // ── Save for Later ─────────────────────────────────────────────────────────
-    document.getElementById('saveLaterBtn').addEventListener('click', () => {
-      const draft = {
+    // ── localStorage helpers ───────────────────────────────────────────────────
+    const LS_DRAFT = 'rsvp_draft';
+    const LS_SUBMITTED = 'rsvp_submitted';
+
+    function getDraftData() {
+      return {
         name: document.getElementById('name').value.trim(),
         email: document.getElementById('email').value.trim(),
         phone: document.getElementById('phone').value.trim(),
-        attending: document.querySelector('input[name="attending"]:checked')?.value,
+        attending: document.querySelector('input[name="attending"]:checked')?.value || null,
         guestCount,
         note: document.getElementById('note').value.trim(),
       };
-      localStorage.setItem('rsvp_draft', JSON.stringify(draft));
+    }
+
+    function restoreDraft(draft) {
+      if (draft.name)  document.getElementById('name').value  = draft.name;
+      if (draft.email) document.getElementById('email').value = draft.email;
+      if (draft.phone) document.getElementById('phone').value = draft.phone;
+      if (draft.note)  document.getElementById('note').value  = draft.note;
+      if (draft.attending) {
+        const radio = document.querySelector(`input[name="attending"][value="${draft.attending}"]`);
+        if (radio) {
+          radio.checked = true;
+          guestCountSection.style.display = draft.attending === 'yes' ? 'block' : 'none';
+        }
+      }
+      if (draft.guestCount) {
+        guestCount = draft.guestCount;
+        guestCountDisplay.textContent = guestCount;
+      }
+    }
+
+    function showDraftToast(msg) {
+      const existing = document.getElementById('rsvp-draft-toast');
+      if (existing) existing.remove();
+      const toast = document.createElement('div');
+      toast.id = 'rsvp-draft-toast';
+      toast.textContent = msg;
+      Object.assign(toast.style, {
+        position: 'fixed', bottom: '1.5rem', left: '50%', transform: 'translateX(-50%)',
+        background: '#2C1F14', color: '#E8C98A',
+        fontFamily: "'Jost', sans-serif", fontWeight: '300', fontSize: '0.75rem',
+        letterSpacing: '0.1em', padding: '0.75rem 1.5rem',
+        border: '1px solid #C9A84C', zIndex: '9999',
+        opacity: '0', transition: 'opacity 0.3s',
+        whiteSpace: 'nowrap'
+      });
+      document.body.appendChild(toast);
+      requestAnimationFrame(() => { toast.style.opacity = '1'; });
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 400);
+      }, 3200);
+    }
+
+    // ── Success message by attendance ──────────────────────────────────────────
+    const MESSAGES = {
+      yes: "We have received your RSVP and are so thrilled to celebrate this special day with you. We cannot wait to see you there! 🤗✨💖",
+      no:  "We completely understand and will miss you dearly. Thank you for letting us know - you will be in our hearts on our special day. 🤗✨💖"
+    };
+
+    function showSuccess(attending) {
+      document.getElementById('rsvp-success-msg').textContent = MESSAGES[attending] || MESSAGES.yes;
+      document.getElementById('rsvp-form-area').style.display = 'none';
+      document.getElementById('rsvp-success').style.display = 'block';
+    }
+
+    // ── On page load: restore state ────────────────────────────────────────────
+    (function onLoad() {
+      const submitted = localStorage.getItem(LS_SUBMITTED);
+      if (submitted) {
+        // Already submitted — show success, hide form
+        showSuccess(submitted);
+        return;
+      }
+
+      const saved = localStorage.getItem(LS_DRAFT);
+      if (saved) {
+        try {
+          const draft = JSON.parse(saved);
+          restoreDraft(draft);
+          showDraftToast('Draft restored — finish sending your RSVP when you\'re ready.');
+        } catch (e) { localStorage.removeItem(LS_DRAFT); }
+      }
+    })();
+
+    // ── Resubmit button (inside success state) ─────────────────────────────────
+    document.getElementById('rsvp-resubmit-btn').addEventListener('click', () => {
+      localStorage.removeItem(LS_SUBMITTED);
+      localStorage.removeItem(LS_DRAFT);
+      // Reset form fields
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('phone').value = '+63 ';
+      document.getElementById('note').value = '';
+      document.querySelectorAll('input[name="attending"]').forEach(r => r.checked = false);
+      guestCount = 1;
+      guestCountDisplay.textContent = '1';
+      guestCountSection.style.display = 'none';
+      document.getElementById('rsvp-success').style.display = 'none';
+      document.getElementById('rsvp-form-area').style.display = 'block';
+    });
+
+    // ── Save for Later ─────────────────────────────────────────────────────────
+    document.getElementById('saveLaterBtn').addEventListener('click', () => {
+      localStorage.setItem(LS_DRAFT, JSON.stringify(getDraftData()));
       closeModal();
-      alert('Your RSVP has been saved. You can return to send it anytime.');
+      showDraftToast('Draft saved — we\'ll restore it when you return.');
     });
 
     // ── Send Now — actual Firebase submission ──────────────────────────────────
@@ -145,9 +241,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
           submittedAt: serverTimestamp()
         });
 
+        // Persist submitted state (store attendance for correct message on reload), clear any draft
+        localStorage.setItem(LS_SUBMITTED, attendingEl.value);
+        localStorage.removeItem(LS_DRAFT);
+
         closeModal();
-        document.getElementById('rsvp-form-area').style.display = 'none';
-        document.getElementById('rsvp-success').style.display = 'block';
+        showSuccess(attendingEl.value);
       } catch (err) {
         console.error('Firebase error:', err);
         closeModal();

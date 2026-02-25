@@ -55,7 +55,7 @@
     <div class="float-petal-3 absolute bottom-32 left-1/4 opacity-25" style="font-size:1.8rem; color:#E8C98A;">✿</div>
     <div class="float-petal absolute bottom-40 right-1/3 opacity-20" style="font-size:1.3rem; color:#C9A84C;">✦</div>
     <div class="max-w-3xl mx-auto relative z-10">
-      <p class="fade-in font-sans font-light tracking-widest text-xs mb-6" style="color:#8C7B6B; letter-spacing:0.25em; text-transform:uppercase;">By the grace of God and with the blessings of our families</p>
+      <p class="fade-in font-sans font-light tracking-widest text-xs my-12" style="color:#8C7B6B; letter-spacing:0.25em; text-transform:uppercase;">By the grace of God and with the blessings of our families</p>
       <div class="fade-in-delay-1 mb-4">
         <h1 class="font-serif" style="font-size: clamp(4rem, 12vw, 8rem); font-weight:300; color:#2C1F14; line-height:0.9; font-style:italic;">Jerome</h1>
         <div class="flex items-center justify-center gap-4 my-3">
@@ -65,8 +65,8 @@
         </div>
         <h1 class="font-serif" style="font-size: clamp(4rem, 12vw, 8rem); font-weight:300; color:#2C1F14; line-height:0.9; font-style:italic;">Justine</h1>
       </div>
-      <p class="fade-in-delay-2 font-sans font-light tracking-widest text-xs mt-8 mb-4" style="color:#8C7B6B; letter-spacing:0.2em; text-transform:uppercase;">We request the honor of your presence</p>
-      <p class="fade-in-delay-2 font-sans font-light tracking-widest text-xs mt-8 mb-4" style="color:#8C7B6B; letter-spacing:0.2em; text-transform:uppercase;">on our wedding day</p>
+      <p class="fade-in-delay-2 font-sans font-light tracking-widest text-xs mt-12" style="color:#8C7B6B; letter-spacing:0.2em; text-transform:uppercase;">We request the honor of your presence</p>
+      <p class="fade-in-delay-2 font-sans font-light tracking-widest text-xs mt-2 mb-12" style="color:#8C7B6B; letter-spacing:0.2em; text-transform:uppercase;">to celebrate our wedding day</p>
       <div class="fade-in-delay-3 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mt-6 mb-10">
         <div class="text-center">
           <p class="font-sans font-light text-xs tracking-widest mb-1" style="color:#C9A84C; text-transform:uppercase; letter-spacing:0.2em;">Date</p>
@@ -145,7 +145,7 @@
 
         <!-- Number of guests -->
         <div id="guestCountSection" class="mb-8" style="display:none;">
-          <label class="form-label">Number of Guests in Your Party</label>
+          <label class="form-label">Guests attending (please only those invited)</label>
           <div class="flex items-center gap-4">
             <button id="guestMinus" class="w-9 h-9 flex items-center justify-center border" style="border-color:#E8C98A; color:#C9A84C; font-size:1.2rem;" type="button">−</button>
             <span id="guestCountDisplay" class="font-serif text-2xl font-light" style="color:#2C1F14; min-width:2rem; text-align:center;">1</span>
@@ -186,7 +186,7 @@
 
     <p class="modal-note">
       Please review your details before sending.<br/>
-      You may also save this and send it later.
+      You may also submit them later.
     </p>
 
     <div class="modal-actions">
@@ -196,12 +196,13 @@
 
   </div>
 </div>
-      <!-- Success state -->
+    <!-- Success state -->
       <div id="rsvp-success" class="rsvp-success" style="background: white; border: 1px solid #EDE5D8;">
         <div class="ornament text-4xl mb-6">✦</div>
         <h3 class="font-serif text-4xl font-light mb-4" style="color:#2C1F14; font-style:italic;">Thank You!</h3>
-        <p class="font-sans font-light text-sm" style="color:#6B5B4E; line-height:1.8; max-width:380px; margin:0 auto;">We have received your RSVP and are so thrilled to celebrate with you. Look out for your invitation in the mail!</p>
-        <div class="deco-line mx-auto mt-6"></div>
+        <p id="rsvp-success-msg" class="font-sans font-light text-sm" style="color:#6B5B4E; line-height:1.8; max-width:380px; margin:0 auto;"></p>
+        <div class="deco-line mx-auto mt-6 mb-6"></div>
+        <button id="rsvp-resubmit-btn" class="btn-outline" style="font-size:0.65rem; padding:0.6rem 1.5rem;">Submit a New Response</button>
       </div>
     </div>
   </section>
@@ -284,7 +285,7 @@
         <div class="flex items-center justify-center gap-4 flex-wrap">
           <img src="./assets/collor-pallete.jpg" alt="color-palette" />
         </div>
-        <p class="font-sans font-light text-xs text-center mt-5" style="color:#B8A898; font-size:0.7rem;">* If champagne tones are not available, wearing white is perfectly welcome. ✨🥂.</p>
+        <p class="font-sans font-light text-xs text-center my-5" style="color:#B8A898; font-size:0.7rem;">* If champagne tones are not available, wearing white is perfectly welcome. ✨🥂.</p>
     </div>
         </div>
       </div>
@@ -358,7 +359,7 @@
 
       <div class="text-center mt-10">
         <p class="font-sans font-light text-sm mb-4" style="color:#8C7B6B;">Still have questions?</p>
-        <a href="mailto:jerome.encinares0016@gmail.com" class="btn-outline inline-block">Contact Us</a>
+        <a href="/cdn-cgi/l/email-protection#214b44534e4c440f444f42484f405344521111101761464c40484d0f424e4c" class="btn-outline inline-block">Contact Us</a>
       </div>
     </div>
   </section>
@@ -379,14 +380,11 @@
         <a href="#travel" class="nav-link" style="color:#8C7B6B;">Travel</a>
         <a href="#story" class="nav-link" style="color:#8C7B6B;">Gallery</a>
       </div>
-      <p class="font-sans font-light text-xs" style="color:#5C4D40; letter-spacing:0.08em;">Questions? <a href="mailto:jerome.encinares0016@gmail.com" style="color:#C9A84C;">jerome.encinares0016@gmail.com</a></p>
-      <p class="font-sans font-light text-xs mt-3" style="color:#3D2E22; font-size:0.65rem;">RSVP Deadline: March 15, 2026</p>
+      <p class="font-sans font-light text-xs" style="color:#5C4D40; letter-spacing:0.08em;">Questions? <a href="/cdn-cgi/l/email-protection#553f30273a38307b303b363c3b3427302665656463153238343c397b363a38" style="color:#C9A84C;"><span class="__cf_email__" data-cfemail="731916011c1e165d161d101a1d120116004343424533141e121a1f5d101c1e">[email&#160;protected]</span></a></p>
+      <p class="font-sans font-light text-xs mt-3" style="color:#5C4D40; letter-spacing:0.08em;">Made with love for Jerome &amp; Justine · May 20, 2026</p>
     </div>
   </footer>
 
-  <!-- Firebase SDK -->
-  <script src="./js/script.js" type="module">
-   
-  </script>
+  <script type="module" src="./js/script.js"></script>
 </body>
 </html>
