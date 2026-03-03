@@ -54,7 +54,7 @@ document.getElementById('guestMinus').addEventListener('click', () => {
 });
 
 document.getElementById('guestPlus').addEventListener('click', () => {
-  guestCount = Math.min(4, guestCount + 1);
+  guestCount = Math.min(6, guestCount + 1);
   guestCountDisplay.textContent = guestCount;
 });
 
@@ -161,20 +161,16 @@ function showDraftToast(msg) {
   }, 3200);
 }
 
-  // ── Success message by attendance ──────────────────────────────────────────
- 
-
   function showSuccess(attending) {
     document.getElementById('rsvp-success-msg').textContent = messages[attending] || messages.yes;
     document.getElementById('rsvp-form-area').style.display = 'none';
     document.getElementById('rsvp-success').style.display = 'block';
   }
 
-  // ── On page load: restore state ────────────────────────────────────────────
+
   (function onLoad() {
     const submitted = localStorage.getItem(LS_SUBMITTED);
     if (submitted) {
-      // Already submitted — show success, hide form
       showSuccess(submitted);
       return;
     }
@@ -189,7 +185,6 @@ function showDraftToast(msg) {
     }
   })();
 
-  // ── Resubmit button (inside success state) ─────────────────────────────────
   document.getElementById('rsvp-resubmit-btn').addEventListener('click', () => {
     localStorage.removeItem(LS_SUBMITTED);
     localStorage.removeItem(LS_DRAFT);
@@ -206,14 +201,12 @@ function showDraftToast(msg) {
     document.getElementById('rsvp-form-area').style.display = 'block';
   });
 
-  // ── Save for Later ─────────────────────────────────────────────────────────
   document.getElementById('saveLaterBtn').addEventListener('click', () => {
     localStorage.setItem(LS_DRAFT, JSON.stringify(getDraftData()));
     closeModal();
     showDraftToast('Draft saved — we\'ll restore it when you return.');
   });
 
-  // ── Send Now — actual Firebase submission ──────────────────────────────────
   document.getElementById('sendNowBtn').addEventListener('click', async () => {
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
