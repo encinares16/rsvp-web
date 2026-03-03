@@ -8,7 +8,7 @@ export const galleryData = [
 ];
 
 export const faqs = [
-    { q: 'COur wedding palette centers around champagne and beige. We would be delighted if guests chose to embrace these tones; however, your presence is what matters most to us. Any elegant formal attire is warmly welcomed, and simple white is absolutely welcome as well' },
+    { q: 'Color and dress code guests should wear?', a: 'Our wedding palette centers around champagne and beige. We would be delighted if guests chose to embrace these tones; however, your presence is what matters most to us. Any elegant formal attire is warmly welcomed, and simple white is absolutely welcome as well.' },
     { q: 'Is there parking available?', a: 'Yes! Parking is available at Gazebo for all guests. ' },
     // { q: 'Are children welcome?', a: 'We adore your little ones, however we have planned an intimate adults-only evening. We hope you will enjoy the opportunity to celebrate with us and get a lovely night out! If nursing infants need to attend, please reach out to us directly.' },
     // { q: 'What about dietary restrictions?', a: 'We will accommodate all dietary needs with love. Please note allergies and preferences in your RSVP message. We will have vegetarian, vegan, gluten-free, and nut-free options available. Our caterer will contact you if additional details are needed.' },
