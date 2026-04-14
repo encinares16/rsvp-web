@@ -13,7 +13,7 @@ export const faqs = [
     // { q: 'Are children welcome?', a: 'We adore your little ones, however we have planned an intimate adults-only evening. We hope you will enjoy the opportunity to celebrate with us and get a lovely night out! If nursing infants need to attend, please reach out to us directly.' },
     // { q: 'What about dietary restrictions?', a: 'We will accommodate all dietary needs with love. Please note allergies and preferences in your RSVP message. We will have vegetarian, vegan, gluten-free, and nut-free options available. Our caterer will contact you if additional details are needed.' },
     // { q: 'Can I take photos during the ceremony?', a: 'We kindly ask guests to put phones and cameras away so everyone can be fully present. Our talented photographer will capture every moment. After the ceremony, please snap away at the reception!' },
-    { q: 'When is the RSVP deadline?', a: 'Please RSVP by April 15, 2026. We would love to have your response as early as possible so we can finalize seating and catering arrangements. Late RSVPs may not be accommodated.' },
+    { q: 'When is the RSVP deadline?', a: 'Please RSVP by April 30, 2026. We would love to have your response as early as possible so we can finalize seating and catering arrangements. Late RSVPs may not be accommodated.' },
 ];
 
   export const messages = {
